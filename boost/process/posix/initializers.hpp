@@ -29,6 +29,7 @@
 #include <boost/process/posix/initializers/on_fork_setup.hpp>
 #include <boost/process/posix/initializers/on_fork_success.hpp>
 #include <boost/process/posix/initializers/run_exe.hpp>
+#include <boost/process/posix/initializers/sequence.hpp>
 #include <boost/process/posix/initializers/set_args.hpp>
 #include <boost/process/posix/initializers/set_cmd_line.hpp>
 #include <boost/process/posix/initializers/set_env.hpp>
