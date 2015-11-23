@@ -69,18 +69,6 @@ struct sequence_wrapper_: public initializer_base
     {
         boost::range::for_each(sequence_, typename WindowsExecutor::call_on_CreateProcess_success(e));
     }
-
-    template <class WindowsExecutor>
-    void on_exec_setup(WindowsExecutor& e) const
-    {
-        boost::range::for_each(sequence_, typename WindowsExecutor::call_on_exec_setup(e));
-    }
-
-    template <class WindowsExecutor>
-    void on_exec_error(WindowsExecutor& e) const
-    {
-        boost::range::for_each(sequence_, typename WindowsExecutor::call_on_exec_error(e));
-    }
 };
 
 // sequence() is a convenience function to construct a sequence_wrapper_<T>
