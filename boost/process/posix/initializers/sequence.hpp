@@ -17,13 +17,18 @@
 #include <boost/mpl/vector.hpp>
 #include <boost/range/algorithm/for_each.hpp>
 
-// Define initializer_base methods to Boost.TypeErasure. Unfortunately the
-// convenience macro must be used in the global namespace.
-BOOST_TYPE_ERASURE_MEMBER((has_on_fork_setup),   on_fork_setup, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_fork_error),   on_fork_error, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_fork_success), on_fork_success, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_exec_setup),   on_exec_setup, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_exec_error),   on_exec_error, 1)
+// Define initializer_base methods to Boost.TypeErasure. The convenience macro
+// must be used in the global namespace.
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(posix)(initializers)(has_on_fork_setup),
+                                                                    on_fork_setup, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(posix)(initializers)(has_on_fork_error),
+                                                                    on_fork_error, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(posix)(initializers)(has_on_fork_success),
+                                                                    on_fork_success, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(posix)(initializers)(has_on_exec_setup),
+                                                                    on_exec_setup, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(posix)(initializers)(has_on_exec_error),
+                                                                    on_exec_error, 1)
 
 namespace boost { namespace process { namespace posix { namespace initializers {
 

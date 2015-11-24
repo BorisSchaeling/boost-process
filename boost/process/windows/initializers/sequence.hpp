@@ -17,11 +17,14 @@
 #include <boost/mpl/vector.hpp>
 #include <boost/range/algorithm/for_each.hpp>
 
-// Define initializer_base methods to Boost.TypeErasure. Unfortunately the
-// convenience macro must be used in the global namespace.
-BOOST_TYPE_ERASURE_MEMBER((has_on_CreateProcess_setup),   on_CreateProcess_setup, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_CreateProcess_error),   on_CreateProcess_error, 1)
-BOOST_TYPE_ERASURE_MEMBER((has_on_CreateProcess_success), on_CreateProcess_success, 1)
+// Define initializer_base methods to Boost.TypeErasure. The convenience macro
+// must be used in the global namespace.
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(windows)(initializers)(has_on_CreateProcess_setup),
+                                                                      on_CreateProcess_setup, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(windows)(initializers)(has_on_CreateProcess_error),
+                                                                      on_CreateProcess_error, 1)
+BOOST_TYPE_ERASURE_MEMBER((boost)(process)(windows)(initializers)(has_on_CreateProcess_success),
+                                                                      on_CreateProcess_success, 1)
 
 namespace boost { namespace process { namespace windows { namespace initializers {
 
