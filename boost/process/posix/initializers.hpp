@@ -23,6 +23,7 @@
 #include <boost/process/posix/initializers/hide_console.hpp>
 #include <boost/process/posix/initializers/inherit_env.hpp>
 #include <boost/process/posix/initializers/notify_io_service.hpp>
+#include <boost/process/posix/initializers/notify_termination.hpp>
 #include <boost/process/posix/initializers/on_exec_error.hpp>
 #include <boost/process/posix/initializers/on_exec_setup.hpp>
 #include <boost/process/posix/initializers/on_fork_error.hpp>
