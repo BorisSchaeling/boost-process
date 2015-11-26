@@ -7,12 +7,8 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-// Apparently BOOST_PROCESS_WINDOWS_INITIALIZERS_SEQUENCE_HPP is too long for
-// VS 2013?! If we use that symbol, it claims it's ALWAYS defined (collision
-// with previous BOOST_PROCESS_WINDOWS_INITIALIZERS_something?) and skips the
-// body of this file! Use an abbreviated symbol instead.
-#ifndef BOOST_PROCESS_WIN_INIT_SEQ_HPP
-#define BOOST_PROCESS_WIN_INIT_SEQ_HPP
+#ifndef BOOST_PROCESS_WINDOWS_INITIALIZERS_SEQUENCE_HPP
+#define BOOST_PROCESS_WINDOWS_INITIALIZERS_SEQUENCE_HPP
 
 #include <boost/process/windows/initializers/initializer_base.hpp>
 #include <boost/type_erasure/any.hpp>
