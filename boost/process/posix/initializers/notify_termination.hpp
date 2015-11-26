@@ -7,8 +7,8 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_PROCESS_POSIX_INITIALIZERS_SEQUENCE_HPP
-#define BOOST_PROCESS_POSIX_INITIALIZERS_SEQUENCE_HPP
+#ifndef BOOST_PROCESS_POSIX_INITIALIZERS_NOTIFY_TERMINATION_HPP
+#define BOOST_PROCESS_POSIX_INITIALIZERS_NOTIFY_TERMINATION_HPP
 
 #include <boost/process/posix/initializers/initializer_base.hpp>
 #include <boost/process/posix/initializers/notify_io_service.hpp>
