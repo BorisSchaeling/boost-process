@@ -41,6 +41,9 @@
     using namespace boost::process::BOOST_PROCESS_PLATFORM::initializers; }}}
 /** \endcond */
 
+/// number of initializer arguments execute() can accept
+#define BOOST_PROCESS_EXECUTE_INITIALIZERS 10
+
 #if defined(BOOST_PROCESS_DOXYGEN)
 /**
  * \def BOOST_POSIX_API

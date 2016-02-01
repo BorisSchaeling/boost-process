@@ -13,69 +13,38 @@
 #include <boost/process/windows/executor.hpp>
 #include <boost/process/windows/child.hpp>
 #include <boost/fusion/tuple/make_tuple.hpp>
+#include <boost/preprocessor/iteration/local.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/ref.hpp>
 
 namespace boost { namespace process { namespace windows {
 
-template <class I0>
-child execute(const I0 &i0)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0)));
+// The following helpers are used to generate C++03 execute() overloads from
+// execute(i0) through execute(i0, ..., i(BOOST_PROCESS_EXECUTE_INITIALIZERS-1)).
+
+// template <class I0, class I1, ...> are handled by BOOST_PP_ENUM_PARAMS.
+
+// execute() params 'const I0 &i0, const I1 &i1, ...'
+#define execute_param(z, n, data) const I##n &i##n
+
+// make_tuple() params 'boost::cref(i0), boost::cref(i1), ...'
+#define tuple_param(z, n, data) boost::cref(i##n)
+
+#define BOOST_PP_LOCAL_MACRO(n)                                         \
+/*       <class I0, class I1, ...> */                                   \
+template <BOOST_PP_ENUM_PARAMS(n, class I)>                             \
+/*    execute(const I0 &i0, const I1 &i1, ...) */                       \
+child execute(BOOST_PP_ENUM(n, execute_param, xx))                      \
+{                                                                       \
+    /*     executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), ...); */ \
+    return executor()(boost::fusion::make_tuple(BOOST_PP_ENUM(n, tuple_param, xx))); \
 }
 
-template <class I0, class I1>
-child execute(const I0 &i0, const I1 &i1)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1)));
-}
-
-template <class I0, class I1, class I2>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2)));
-}
-
-template <class I0, class I1, class I2, class I3>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4, class I5>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4, const I5 &i5)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4), boost::cref(i5)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4, class I5, class I6>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4, const I5 &i5, const I6 &i6)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4), boost::cref(i5), boost::cref(i6)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4, class I5, class I6, class I7>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4, const I5 &i5, const I6 &i6, const I7 &i7)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4), boost::cref(i5), boost::cref(i6), boost::cref(i7)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4, class I5, class I6, class I7, class I8>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4, const I5 &i5, const I6 &i6, const I7 &i7, const I8 &i8)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4), boost::cref(i5), boost::cref(i6), boost::cref(i7), boost::cref(i8)));
-}
-
-template <class I0, class I1, class I2, class I3, class I4, class I5, class I6, class I7, class I8, class I9>
-child execute(const I0 &i0, const I1 &i1, const I2 &i2, const I3 &i3, const I4 &i4, const I5 &i5, const I6 &i6, const I7 &i7, const I8 &i8, const I9 &i9)
-{
-    return executor()(boost::fusion::make_tuple(boost::cref(i0), boost::cref(i1), boost::cref(i2), boost::cref(i3), boost::cref(i4), boost::cref(i5), boost::cref(i6), boost::cref(i7), boost::cref(i8), boost::cref(i9)));
-}
+#define BOOST_PP_LOCAL_LIMITS (1, BOOST_PROCESS_EXECUTE_INITIALIZERS)
+#include BOOST_PP_LOCAL_ITERATE()
+#undef execute_param
+#undef tuple_param
 
 }}}
 
