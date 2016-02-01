@@ -18,6 +18,7 @@
 #include <boost/process/windows/initializers/close_stdout.hpp>
 #include <boost/process/windows/initializers/hide_console.hpp>
 #include <boost/process/windows/initializers/inherit_env.hpp>
+#include <boost/process/windows/initializers/notify_termination.hpp>
 #include <boost/process/windows/initializers/on_CreateProcess_error.hpp>
 #include <boost/process/windows/initializers/on_CreateProcess_setup.hpp>
 #include <boost/process/windows/initializers/on_CreateProcess_success.hpp>
