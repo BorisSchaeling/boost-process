@@ -22,6 +22,7 @@
 #include <boost/process/windows/initializers/on_CreateProcess_setup.hpp>
 #include <boost/process/windows/initializers/on_CreateProcess_success.hpp>
 #include <boost/process/windows/initializers/run_exe.hpp>
+#include <boost/process/windows/initializers/sequence.hpp>
 #include <boost/process/windows/initializers/set_args.hpp>
 #include <boost/process/windows/initializers/set_cmd_line.hpp>
 #include <boost/process/windows/initializers/set_env.hpp>
