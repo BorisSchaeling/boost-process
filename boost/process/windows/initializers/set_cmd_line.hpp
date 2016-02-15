@@ -10,6 +10,7 @@
 #ifndef BOOST_PROCESS_WINDOWS_INITIALIZERS_SET_CMD_LINE_HPP
 #define BOOST_PROCESS_WINDOWS_INITIALIZERS_SET_CMD_LINE_HPP
 
+#include <boost/detail/winapi/config.hpp>
 #include <boost/process/windows/initializers/initializer_base.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/shared_array.hpp>
@@ -18,14 +19,13 @@
 namespace boost { namespace process { namespace windows { namespace initializers {
 
 template <class String>
-class set_cmd_line_ : public initializer_base
+struct set_cmd_line_
 {
-private:
-    typedef typename String::value_type Char;
+    typedef String string_type;
+    typedef typename String::value_type char_type;
 
-public:
     explicit set_cmd_line_(const String &s)
-        : cmd_line_(new Char[s.size() + 1])
+        : cmd_line_(new char_type[s.size() + 1])
     {
         boost::copy(s, cmd_line_.get());
         cmd_line_[s.size()] = 0;
@@ -38,10 +38,9 @@ public:
     }
 
 private:
-    boost::shared_array<Char> cmd_line_;
+    boost::shared_array<char_type> cmd_line_;
 };
 
-#if defined(_UNICODE) || defined(UNICODE)
 inline set_cmd_line_<std::wstring> set_cmd_line(const wchar_t *ws)
 {
     return set_cmd_line_<std::wstring>(ws);
@@ -51,7 +50,7 @@ inline set_cmd_line_<std::wstring> set_cmd_line(const std::wstring &ws)
 {
     return set_cmd_line_<std::wstring>(ws);
 }
-#else
+#if !defined( BOOST_NO_ANSI_APIS )
 inline set_cmd_line_<std::string> set_cmd_line(const char *s)
 {
     return set_cmd_line_<std::string>(s);
@@ -61,7 +60,7 @@ inline set_cmd_line_<std::string> set_cmd_line(const std::string &s)
 {
     return set_cmd_line_<std::string>(s);
 }
-#endif
+#endif //BOOST_NO_ANSI_APIS
 
 }}}}
 

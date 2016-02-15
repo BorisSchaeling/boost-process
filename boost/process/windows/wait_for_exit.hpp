@@ -12,31 +12,32 @@
 
 #include <boost/process/config.hpp>
 #include <boost/system/error_code.hpp>
-#include <Windows.h>
+#include <boost/detail/winapi/synchronization.hpp>
+#include <boost/detail/winapi/process.hpp>
 
 namespace boost { namespace process { namespace windows {
 
 template <class Process>
-inline DWORD wait_for_exit(const Process &p)
+inline ::boost::detail::winapi::DWORD_ wait_for_exit(const Process &p)
 {
-    if (::WaitForSingleObject(p.process_handle(), INFINITE) == WAIT_FAILED)
+    if (::boost::detail::winapi::WaitForSingleObject(p.process_handle(), ::boost::detail::winapi::infinite) == ::boost::detail::winapi::wait_failed)
         BOOST_PROCESS_THROW_LAST_SYSTEM_ERROR("WaitForSingleObject() failed");
 
-    DWORD exit_code;
-    if (!::GetExitCodeProcess(p.process_handle(), &exit_code))
+    ::boost::detail::winapi::DWORD_ exit_code;
+    if (!::boost::detail::winapi::GetExitCodeProcess(p.process_handle(), &exit_code))
         BOOST_PROCESS_THROW_LAST_SYSTEM_ERROR("GetExitCodeProcess() failed");
 
     return exit_code;
 }
 
 template <class Process>
-inline DWORD wait_for_exit(const Process &p, boost::system::error_code &ec)
+inline ::boost::detail::winapi::DWORD_ wait_for_exit(const Process &p, boost::system::error_code &ec)
 {
-    DWORD exit_code = 1;
+	::boost::detail::winapi::DWORD_ exit_code = 1;
 
-    if (::WaitForSingleObject(p.process_handle(), INFINITE) == WAIT_FAILED)
+    if (::boost::detail::winapi::WaitForSingleObject(p.process_handle(), ::boost::detail::winapi::infinite) == ::boost::detail::winapi::wait_failed)
         BOOST_PROCESS_RETURN_LAST_SYSTEM_ERROR(ec);
-    else if (!::GetExitCodeProcess(p.process_handle(), &exit_code))
+    else if (!::boost::detail::winapi::GetExitCodeProcess(p.process_handle(), &exit_code))
         BOOST_PROCESS_RETURN_LAST_SYSTEM_ERROR(ec);
     else
         ec.clear();

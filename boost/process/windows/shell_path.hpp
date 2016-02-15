@@ -13,14 +13,15 @@
 #include <boost/process/config.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/filesystem/path.hpp>
-#include <Windows.h>
+#include <boost/detail/winapi/basic_types.hpp>
+#include <boost/detail/winapi/get_system_directory.hpp>
 
 namespace boost { namespace process { namespace windows {
 
 inline boost::filesystem::path shell_path()
 {
-    TCHAR sysdir[MAX_PATH];
-    UINT size = ::GetSystemDirectory(sysdir, sizeof(sysdir));
+    ::boost::detail::winapi::WCHAR_ sysdir[260];
+    unsigned int size = ::boost::detail::winapi::get_system_directory(sysdir, sizeof(sysdir));
     if (!size)
         BOOST_PROCESS_THROW_LAST_SYSTEM_ERROR("GetSystemDirectory() failed");
     boost::filesystem::path p = sysdir;
@@ -29,8 +30,9 @@ inline boost::filesystem::path shell_path()
 
 inline boost::filesystem::path shell_path(boost::system::error_code &ec)
 {
-    TCHAR sysdir[MAX_PATH];
-    UINT size = ::GetSystemDirectory(sysdir, sizeof(sysdir));
+
+	::boost::detail::winapi::WCHAR_ sysdir[260];
+    unsigned int size = ::boost::detail::winapi::get_system_directory(sysdir, sizeof(sysdir));
     boost::filesystem::path p;
     if (!size)
     {

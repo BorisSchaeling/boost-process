@@ -11,19 +11,19 @@
 #define BOOST_PROCESS_WINDOWS_INITIALIZERS_SHOW_WINDOW_HPP
 
 #include <boost/process/windows/initializers/initializer_base.hpp>
-#include <Windows.h>
+#include <boost/detail/winapi/process.hpp>
+
 
 namespace boost { namespace process { namespace windows { namespace initializers {
 
-class show_window : public initializer_base
+struct show_window : initializer_base
 {
-public:
     explicit show_window(WORD flags) : flags_(flags) {}
 
     template <class WindowsExecutor>
     void on_CreateProcess_setup(WindowsExecutor &e) const
     {
-        e.startup_info.dwFlags |= STARTF_USESHOWWINDOW;
+        e.startup_info.dwFlags |= ::boost::detail::winapi::STARTF_USESHOWWINDOW_;
         e.startup_info.wShowWindow |= flags_;
     }
 
