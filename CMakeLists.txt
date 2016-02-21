@@ -31,7 +31,7 @@ target_link_libraries(boost_process INTERFACE
   Boost::iostreams)
 target_include_directories(boost_process INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:"${include_install_dir}">)
+  $<INSTALL_INTERFACE:${include_install_dir}>)
 if(WIN32)
   target_compile_definitions(
     boost_process INTERFACE _CRT_SECURE_NO_WARNINGS _SCL_SECURE_NO_WARNINGS WIN32_LEAN_AND_MEAN)
