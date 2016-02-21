@@ -53,7 +53,7 @@ install(
   INCLUDES DESTINATION "${include_install_dir}")
 
 install(
-  DIRECTORY "include/boost"
+  DIRECTORY "boost"
   DESTINATION "${include_install_dir}")
 
 install(
