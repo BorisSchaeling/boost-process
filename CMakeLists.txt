@@ -40,16 +40,23 @@ endif()
 add_subdirectory(libs)
 
 set(config_export_name "${PROJECT_NAME}Config")
+set(targets_export_name "${PROJECT_NAME}Targets")
+set(project_config "${CMAKE_CURRENT_BINARY_DIR}/${config_export_name}.cmake")
 set(version_config "${CMAKE_CURRENT_BINARY_DIR}/${config_export_name}Version.cmake")
 set(namespace "${PROJECT_NAME}::")
 
 include(CMakePackageConfigHelpers)
+configure_package_config_file( # Uses target_exports_name
+    "cmake/Config.cmake.in"
+    "${project_config}"
+    INSTALL_DESTINATION "${config_install_dir}"
+)
 write_basic_package_version_file(
   "${version_config}" COMPATIBILITY SameMajorVersion)
 
 install(
   TARGETS boost_process
-  EXPORT "${config_export_name}"
+  EXPORT "${targets_export_name}"
   INCLUDES DESTINATION "${include_install_dir}")
 
 install(
@@ -57,9 +64,9 @@ install(
   DESTINATION "${include_install_dir}")
 
 install(
-  EXPORT "${config_export_name}"
+  EXPORT "${targets_export_name}"
   NAMESPACE "${namespace}"
   DESTINATION "${config_install_dir}")
 install(
-  FILES "${version_config}"
+  FILES "${project_config}" "${version_config}"
   DESTINATION "${config_install_dir}")
