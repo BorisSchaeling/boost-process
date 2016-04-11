@@ -36,7 +36,6 @@ public:
         ConstIterator end = boost::const_end(args);
         if (it != end)
         {
-            exe_ = *it;
             OStringStream os;
             for (; it != end; ++it)
             {
