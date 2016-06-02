@@ -9,7 +9,7 @@
 
 project : requirements
   <include>../../..
-  <source>/boost//headers
+  <implicit-dependency>/boost//headers
   <toolset>msvc:<define>_SCL_SECURE_NO_WARNINGS
   <target-os>windows:<define>WIN32_LEAN_AND_MEAN
 ;
