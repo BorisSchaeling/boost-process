@@ -47,7 +47,7 @@ public:
     HANDLE process_handle() const { return proc_info.hProcess; }
 
 private:
-    BOOST_MOVABLE_BUT_NOT_COPYABLE(child);
+    BOOST_MOVABLE_BUT_NOT_COPYABLE(child)
 };
 
 }}}
